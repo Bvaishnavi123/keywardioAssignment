@@ -1,10 +1,24 @@
-.homeContainer{
-    width: 96%;
-    margin: auto;
-    padding: 20px;
-    gap: 20px;
+.homeContainer {
+  /* width: 96%; */
+  margin: auto;
+  padding: 50px;
+  gap: 10px;
+  height: 60vh;
 }
-.tableContainer{
-    width: 49%;
-   
+.tableContainer {
+  width: 48%;
+  position: relative;
+  height: 100%;
+}
+.toggleButtonGroup {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.piChartContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

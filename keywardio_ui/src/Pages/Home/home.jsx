@@ -1,8 +1,13 @@
-import OutlinedCard from "../../Components/Card/card.jsx";
+import { Card, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import PieChartWithPaddingAngle from "../../Components/PieChart/piechart.jsx";
 import ColumnGroupingTable from "../../Components/Table/table.jsx";
+import PieChartIcon from '@mui/icons-material/PieChart';
+import TableViewIcon from '@mui/icons-material/TableView';
 import Style from "./home.module.css";
+import { useState } from "react";
 
 export const Home = () => {
+  const [viewOption,setViewOption] = useState("pieChart")
   const columns = [
     { id: "name", label: "Name", minWidth: 100 },
     { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
@@ -10,21 +15,18 @@ export const Home = () => {
       id: "population",
       label: "Population",
       minWidth: 170,
-      align: "right",
       format: (value) => value.toLocaleString("en-US"),
     },
     {
       id: "size",
       label: "Size\u00a0(km\u00b2)",
       minWidth: 170,
-      align: "right",
       format: (value) => value.toLocaleString("en-US"),
     },
     {
       id: "density",
       label: "Density",
       minWidth: 170,
-      align: "right",
       format: (value) => value.toFixed(2),
     },
   ];
@@ -44,18 +46,34 @@ export const Home = () => {
     createData("Germany", "DE", 83019200, 357578),
     createData("Ireland", "IE", 4857000, 70273),
   ];
+ 
   return (
     <div className={`flexboxClass ${Style.homeContainer}`}>
-      <div className={Style.tableContainer}>
-        <OutlinedCard>
-          <ColumnGroupingTable rows={rows} columns={columns} />
-        </OutlinedCard>
-      </div>
-      <div className={Style.tableContainer}>
-        <OutlinedCard>
-          <ColumnGroupingTable rows={rows} columns={columns} />
-        </OutlinedCard>
-      </div>
+      <Card className={Style.tableContainer}>
+        <ColumnGroupingTable rows={rows} columns={columns} />
+      </Card>
+
+      <Card className={Style.tableContainer}>
+        <div className={Style.piChartContainer}>
+        {viewOption=="pieChart"?<PieChartWithPaddingAngle />:<ColumnGroupingTable rows={rows} columns={columns} />}
+        </div>
+       
+        <div className={Style.toggleButtonGroup}>
+        <ToggleButtonGroup
+          orientation="horizontal"
+  
+        >
+          <ToggleButton  onClick={()=>setViewOption("pieChart")}>
+            <PieChartIcon />
+          </ToggleButton>
+          <ToggleButton onClick={()=>setViewOption("table")}>
+            <TableViewIcon/>
+          </ToggleButton>
+        </ToggleButtonGroup>
+        </div>
+      
+        {/* <ColumnGroupingTable rows={rows} columns={columns} /> */}
+      </Card>
     </div>
   );
 };

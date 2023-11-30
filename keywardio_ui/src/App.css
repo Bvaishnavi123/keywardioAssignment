@@ -1,20 +1,28 @@
-*{
+* {
   margin: 0;
   padding: 0;
+}
+body {
   font-family: sans-serif !important;
- 
-  
+  background-color: #fafafa;
 }
 .App {
-  text-align: center;
   height: 99vh;
-  background-color: #FAFAFA;
-  
-  
-}.flexboxClass{
+}
+.flexboxClass {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+}
+div{
+  box-sizing: border-box;
+}
+.container{
+  padding: 20px;
+  height: 100vh;
+  width: 95%;
+  margin: 20px auto;
+  position: relative;
 }
 
