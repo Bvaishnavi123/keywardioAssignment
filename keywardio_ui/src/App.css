@@ -28,7 +28,7 @@ div{
   
 }
 .buttonContainer {
- 
+  width: 15%;
   position: absolute;
   bottom: 10px;
   right: 10px;

@@ -18,6 +18,12 @@ import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 export const Home = () => {
   const [viewOption, setViewOption] = useState("pieChart");
+  const [pieData,setPieData] = useState([
+    {label:"Male",value:712},
+    {label:"Female",value:566},
+    {label:"Unknown",value:466},
+])
+const [selectedValue,setSelectedValue] = useState("Clicks")
   const columns = [
     { id: "Campaigns", label: "Campaigns", minWidth: 170 },
     { id: "Clicks", label: "Clicks", minWidth: 170 },
@@ -67,11 +73,29 @@ export const Home = () => {
   ];
 
   const rowsForPie = [
-    createDataPie("Male", "712", "USD 4,272", 90),
-    createDataPie("Female", "566", "USD 3,454", 8),
-    createDataPie("Unknown", "466", "USD 3,272", 70),
-    createDataPie("Total", "757", "USD 2,489", 100),
+    createDataPie("Male", 712, "USD 4,272", 90),
+    createDataPie("Female", 566, "USD 3,454", 8),
+    createDataPie("Unknown", 466, "USD 3,272", 70),
+    createDataPie("Total", 757, "USD 2,489", 100),
   ];
+
+  const generateData=(e)=>{
+    if(e.target.value == "Conversions"){
+      setPieData([
+        {label:"Male",value:90},
+        {label:"Female",value:8},
+        {label:"Unknown",value:70},
+      ])
+
+    }else{
+      setPieData([
+        {label:"Male",value:712},
+        {label:"Female",value:566},
+        {label:"Unknown",value:466},
+    ])
+    }
+
+  }
 
   return (
     <div className={`flexboxClass ${Style.homeContainer}`}>
@@ -97,10 +121,10 @@ export const Home = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     size="small"
-                    defaultValue={"Clicks"}
+                    defaultValue={selectedValue}
+                    onChange={generateData}
                   >
                     <MenuItem value={"Clicks"}>Clicks</MenuItem>
-                    <MenuItem value={"Cost"}>Cost</MenuItem>
                     <MenuItem value={"Conversions"}>Conversions</MenuItem>
                   </Select>
                 </FormControl>
@@ -109,7 +133,7 @@ export const Home = () => {
                 </div>
               </div>
             </div>
-            <PieChartWithPaddingAngle />
+            <PieChartWithPaddingAngle data={pieData}/>
           </div>
         ) : (
           <div className={Style.tableContainer}>

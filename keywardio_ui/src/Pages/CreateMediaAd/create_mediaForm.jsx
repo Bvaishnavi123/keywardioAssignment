@@ -257,11 +257,11 @@ export const MediaFormCmp = () => {
               </FormControl>
             </div>
           </div>
-          <div className="flexboxClass buttonContainer" style={{ gap: "10px" }}>
-            <Button variant="outlined" onClick={() => navigate("/create-ads")}>
+          <div className="flexboxClass buttonContainer" style={{ gap: "5px" }}>
+            <Button variant="outlined" onClick={() => navigate("/create-ads")} sx={{width:"48%"}}>
               Back
             </Button>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" sx={{width:"48%"}}>
               Submit
             </Button>
           </div>

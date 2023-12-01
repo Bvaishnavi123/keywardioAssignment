@@ -79,7 +79,7 @@ export const CreateAds = () => {
       </div>
 
       <div className="buttonContainer">
-        <Button variant="contained" onClick={handleNextClick}>Next</Button>
+        <Button variant="contained" onClick={handleNextClick} sx={{width:"100%"}}>Next</Button>
       </div>
     </Card>
   );
