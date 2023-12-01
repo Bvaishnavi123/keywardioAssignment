@@ -8,22 +8,41 @@ import {
   Typography,
 } from "@mui/material";
 import Styles from "./createads.module.css";
+import { useNavigate } from "react-router-dom";
 
 export const CreateAds = () => {
   const [textAdChecked, setTextAdChecked] = useState(false);
   const [mediaAdChecked, setMediaAdChecked] = useState(false);
+  const navigate = useNavigate()
 
   const handleTextAdCheck = () => {
     setTextAdChecked(!textAdChecked);
   };
 
   const handleMediaAdCheck = () => {
+    
     setMediaAdChecked(!mediaAdChecked);
+   
   };
+
+  const handleNextClick = ()=>{
+    if(textAdChecked && !mediaAdChecked){
+     
+      navigate("/create-text-form")
+    }
+    else if((!textAdChecked && mediaAdChecked) || (textAdChecked && mediaAdChecked)){
+      navigate("/create-media-form")
+    }
+
+   
+  }
 
   return (
     <Card className="container">
-      <div>Create Ads</div>
+      <Typography variant="span" className="fontWeight ">
+        CREATE ADS
+        </Typography>
+
       <div className={`flexboxClass ${Styles.subCardContainer}`}>
         <Paper elevation={3} className={Styles.subCard} onClick={handleTextAdCheck}>
           <div style={{ padding: "10px" }}>
@@ -36,7 +55,7 @@ export const CreateAds = () => {
           </div>
           <div className={Styles.createAddContainer}>
             <p>Create</p>
-            <Typography variant="h6" style={{ fontWeight: "200" }}>
+            <Typography variant="h5" className="fontWeight">
               Text Ad
             </Typography>
           </div>
@@ -46,21 +65,21 @@ export const CreateAds = () => {
             <FormControlLabel control={<Checkbox checked={mediaAdChecked} />} />
 
             <img
-              src="https://marketingweek.imgix.net/content/uploads/2015/09/24095454/facebook-360-video-e1471534875125.png?auto=compress,format&q=60&w=736&h=450"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5ivSQzXnq4B-W8cJy8egS_lfiji_Si3eYtP5ujroisLncNVsPd0kA2Ttr83XM6pAj3qU&usqp=CAU"
               className={Styles.imgContainer}
             />
           </div>
           <div className={Styles.createAddContainer}>
             <p>Create</p>
-            <Typography variant="h6" style={{ fontWeight: "200" }}>
+            <Typography variant="h5"className="fontWeight">
               Media Ad
             </Typography>
           </div>
         </Paper>
       </div>
 
-      <div className={Styles.buttonContainer}>
-        <Button variant="contained">Next</Button>
+      <div className="buttonContainer">
+        <Button variant="contained" onClick={handleNextClick}>Next</Button>
       </div>
     </Card>
   );

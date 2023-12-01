@@ -1,78 +1,142 @@
-import { Card, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import {
+  Card,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+} from "@mui/material";
 import PieChartWithPaddingAngle from "../../Components/PieChart/piechart.jsx";
 import ColumnGroupingTable from "../../Components/Table/table.jsx";
-import PieChartIcon from '@mui/icons-material/PieChart';
-import TableViewIcon from '@mui/icons-material/TableView';
+import PieChartIcon from "@mui/icons-material/PieChart";
+import TableViewIcon from "@mui/icons-material/TableView";
 import Style from "./home.module.css";
 import { useState } from "react";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 export const Home = () => {
-  const [viewOption,setViewOption] = useState("pieChart")
+  const [viewOption, setViewOption] = useState("pieChart");
   const columns = [
-    { id: "name", label: "Name", minWidth: 100 },
-    { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
+    { id: "Campaigns", label: "Campaigns", minWidth: 170 },
+    { id: "Clicks", label: "Clicks", minWidth: 170 },
     {
-      id: "population",
-      label: "Population",
+      id: "Cost",
+      label: "Cost",
       minWidth: 170,
       format: (value) => value.toLocaleString("en-US"),
     },
     {
-      id: "size",
-      label: "Size\u00a0(km\u00b2)",
+      id: "Conversions",
+      label: "Conversions",
       minWidth: 170,
-      format: (value) => value.toLocaleString("en-US"),
-    },
-    {
-      id: "density",
-      label: "Density",
-      minWidth: 170,
-      format: (value) => value.toFixed(2),
     },
   ];
 
-  function createData(name, code, population, size) {
-    const density = population / size;
-    return { name, code, population, size, density };
+  const columnsForPieData = [
+    { id: "Group", label: "Group", minWidth: 170 },
+    { id: "Clicks", label: "Clicks", minWidth: 170 },
+    {
+      id: "Cost",
+      label: "Cost",
+      minWidth: 170,
+      format: (value) => value.toLocaleString("en-US"),
+    },
+    {
+      id: "Conversions",
+      label: "Conversions",
+      minWidth: 170,
+    },
+  ];
+
+  function createData(Campaigns, Clicks, Cost, Conversions) {
+    return { Campaigns, Clicks, Cost, Conversions };
   }
-
+  function createDataPie(Group, Clicks, Cost, Conversions) {
+    return { Group, Clicks, Cost, Conversions };
+  }
   const rows = [
-    createData("India", "IN", 1324171354, 3287263),
-    createData("China", "CN", 1403500365, 9596961),
-    createData("Italy", "IT", 60483973, 301340),
-    createData("United States", "US", 327167434, 9833520),
-    createData("Canada", "CA", 37602103, 9984670),
-    createData("Australia", "AU", 25475400, 7692024),
-    createData("Germany", "DE", 83019200, 357578),
-    createData("Ireland", "IE", 4857000, 70273),
+    createData("Cosmetics", "712", "USD 4,272", 90),
+    createData("Serums", "3,961", "USD 27,331", 5),
+    createData("Facewash", "9,462", "USD 76,831", 6),
+    createData("Shampoos", "439", "USD 2,151", 90),
+    createData("Conditioners", "1,680", "USD 3,864", 44),
+    createData("Facewash 2", "4,978", "USD 29,370", 22),
+    createData("Total", "26,510", "USD 1,43,819 ", 33),
   ];
- 
+
+  const rowsForPie = [
+    createDataPie("Male", "712", "USD 4,272", 90),
+    createDataPie("Female", "566", "USD 3,454", 8),
+    createDataPie("Unknown", "466", "USD 3,272", 70),
+    createDataPie("Total", "757", "USD 2,489", 100),
+  ];
+
   return (
     <div className={`flexboxClass ${Style.homeContainer}`}>
-      <Card className={Style.tableContainer}>
-        <ColumnGroupingTable rows={rows} columns={columns} />
+      <Card className={Style.mainTableContainer}>
+        <div className={Style.tableContainer}>
+          <ColumnGroupingTable rows={rows} columns={columns} />
+        </div>
       </Card>
 
-      <Card className={Style.tableContainer}>
-        <div className={Style.piChartContainer}>
-        {viewOption=="pieChart"?<PieChartWithPaddingAngle />:<ColumnGroupingTable rows={rows} columns={columns} />}
-        </div>
-       
-        <div className={Style.toggleButtonGroup}>
+      <Card className={Style.mainTableContainer}>
+        {viewOption == "pieChart" ? (
+          <div className={Style.piChartContainer}>
+            <div className="flexboxClass" style={{ padding: "10px" }}>
+              <Typography variant="span" className=" fontWeight" fontSize={20}>
+                Ad Insights
+              </Typography>
+              <div
+                className="flexboxClass"
+                style={{ width: "50%", justifyContent: "center", gap: "10px" }}
+              >
+                <FormControl style={{ width: "40%" }}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    size="small"
+                    defaultValue={"Clicks"}
+                  >
+                    <MenuItem value={"Clicks"}>Clicks</MenuItem>
+                    <MenuItem value={"Cost"}>Cost</MenuItem>
+                    <MenuItem value={"Conversions"}>Conversions</MenuItem>
+                  </Select>
+                </FormControl>
+                <div>
+                  <HelpOutlineIcon color="#7F858B" fontSize="medium" />
+                </div>
+              </div>
+            </div>
+            <PieChartWithPaddingAngle />
+          </div>
+        ) : (
+          <div className={Style.tableContainer}>
+            <ColumnGroupingTable
+              rows={rowsForPie}
+              columns={columnsForPieData}
+            />
+          </div>
+        )}
+
         <ToggleButtonGroup
           orientation="horizontal"
-  
+          className={Style.toggleButtonGroup}
         >
-          <ToggleButton  onClick={()=>setViewOption("pieChart")}>
+          <ToggleButton
+            onClick={() => setViewOption("pieChart")}
+            style={{ borderRadius: "20px", border: "none" }}
+          >
             <PieChartIcon />
           </ToggleButton>
-          <ToggleButton onClick={()=>setViewOption("table")}>
-            <TableViewIcon/>
+          <ToggleButton
+            onClick={() => setViewOption("table")}
+            style={{ borderRadius: "20px", border: "none" }}
+          >
+            <TableViewIcon />
           </ToggleButton>
         </ToggleButtonGroup>
-        </div>
-      
-        {/* <ColumnGroupingTable rows={rows} columns={columns} /> */}
       </Card>
     </div>
   );
