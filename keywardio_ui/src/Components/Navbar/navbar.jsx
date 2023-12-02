@@ -6,8 +6,7 @@ export const Navbar = () => {
 
   const navigate = useNavigate()
   return (
-    <div >
-      <Card style={{marginBottom:"12px"}}>
+      <Card style={{marginBottom:"12px" , borderBottom:"2px solid #EEEEEE" , boxShadow:"none"}} >
         <div className={`flexboxClass ${Style.navbarContainer}`}>
           <h2>APP LOGO</h2>
           <div className={`flexboxClass ${Style.dashboardCreateADContainer}`}>
@@ -20,6 +19,5 @@ export const Navbar = () => {
            </div>
         </div>
       </Card>
-    </div>
   );
 };
